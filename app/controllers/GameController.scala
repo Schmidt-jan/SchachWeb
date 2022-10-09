@@ -22,35 +22,19 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     if (cmd.nonEmpty)
       tui.interactWithUser(cmd)
 
-    val player = if (controller.getPlayer().getRed == 0) "BLACK" else "WHITE"
-    val status = printGameStatus()
-    val gameField = controller.gameFieldToString
-
-    val response = "It's your turn : " + player + "\n" +
-      "Status: " + status + "\n" +
-      gameField
-    Ok(response)
+    Ok(createResponse)
   }
 
-  def printGameStatus(): String = {
-    controller.getGameStatus() match {
-      case 0 => "RUNNING"
-      case 1 => "PLAYER " + {
-          if (controller.getPlayer().getRed == 0) "Black"
-          else "WHITE"
-        } + "IS CHECKED"
-      case 2 => {if (controller.getPlayer().getRed == 0) "BLACK "
-      else "WHITE "} + "IS CHECKMATE"
-      case 3 => "INVALID MOVE"
-      case 4 => "PAWN HAS REACHED THE END"
-    }
+  def gameNew: Action[AnyContent] = Action {
+    controller.createGameField()
+    Ok(createResponse)
   }
 
   def figureMove(from: String, to: String): Action[AnyContent] = Action {
     if (from.length != 2)
       BadRequest("Length of 'from' needs to be 2")
     if (to.length != 2)
-      BadRequest("Length of 'from' needs to be 2")
+      BadRequest("Length of 'to' needs to be 2")
 
     val fromX = getPoint(from.charAt(0))
     val fromY = getPoint(from.charAt(1))
@@ -59,11 +43,55 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     val fromTo = Vector(fromX, fromY, toX, toY)
 
     controller.movePiece(fromTo)
-    Ok(controller.getGameField.toString())
+    Ok(createResponse)
   }
 
-  def figureSwitch: Action[AnyContent] = Action {
+  def gameSave: Action[AnyContent] = Action {
     NotImplemented
+  }
+
+  def gameLoad: Action[AnyContent] = Action {
+    NotImplemented
+  }
+
+  def gameSaveToFile: Action[AnyContent] = Action {
+    NotImplemented
+  }
+
+  def gameLoadFromFile: Action[AnyContent] = Action {
+    NotImplemented
+  }
+
+  def gameUndo: Action[AnyContent] = Action {
+    controller.undo()
+    Ok(createResponse)
+  }
+
+  def gameRedo: Action[AnyContent] = Action {
+    controller.redo()
+    Ok(createResponse)
+  }
+
+  def printGameStatus(): String = {
+    controller.getGameStatus() match {
+      case 0 => "RUNNING"
+      case 1 => "PLAYER " + {
+        if (controller.getPlayer().getRed == 0) "Black"
+        else "WHITE"
+      } + "IS CHECKED"
+      case 2 => {
+        if (controller.getPlayer().getRed == 0) "BLACK "
+        else "WHITE "
+      } + "IS CHECKMATE"
+      case 3 => "INVALID MOVE"
+      case 4 => "PAWN HAS REACHED THE END"
+      case 5 => "INVALID CONVERSION"
+    }
+  }
+
+  def convertPawn(toFigure: String): Action[AnyContent] = Action {
+    controller.convertPawn(toFigure)
+    Ok(createResponse)
   }
 
 
@@ -104,5 +132,16 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
         }
       )
     )
+  }
+
+  def createResponse: String = {
+    val player = if (controller.getPlayer().getRed == 0) "BLACK" else "WHITE"
+    val status = printGameStatus()
+    val gameField = controller.gameFieldToString
+
+    val response = "It's your turn : " + player + "\n" +
+      "Status: " + status + "\n" +
+      gameField
+    response
   }
 }
