@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "97322b31-42e7-4951-a3f0-6b7ddba4af6e",
+		"name": "Schach WebApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui/new",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui/safe",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui",
+						"safe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui/move?from=A2&to=A4",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui",
+						"move"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "A2"
+						},
+						{
+							"key": "to",
+							"value": "A4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Load game",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Switch pawn",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui/switchPawn?toFigure=rook",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui",
+						"switchPawn"
+					],
+					"query": [
+						{
+							"key": "toFigure",
+							"value": "rook",
+							"description": "can be 'queen', 'rook', 'knight', 'bishop'"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Control via command",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/tui/cmd?cmd=redo",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"tui",
+						"cmd"
+					],
+					"query": [
+						{
+							"key": "cmd",
+							"value": "redo",
+							"description": "'move [A-H][1-8] [A-H][1-8]', 'undo', 'redo'"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

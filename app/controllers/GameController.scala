@@ -5,10 +5,15 @@ import Schach.aview.Tui
 import Schach.controller.controllerComponent.ControllerInterface
 import Schach.model.figureComponent.Figure
 import com.google.inject.{Guice, Injector}
+import play.api.libs.Files
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import java.io.File
+import java.nio.file.Paths
 import javax.inject.Inject
+import scala.io.Source
 
 
 class GameController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -46,20 +51,17 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(createResponse)
   }
 
-  def gameSave: Action[AnyContent] = Action {
-    NotImplemented
-  }
-
-  def gameLoad: Action[AnyContent] = Action {
-    NotImplemented
-  }
-
   def gameSaveToFile: Action[AnyContent] = Action {
-    NotImplemented
+    controller.saveGame()
+    Ok.sendFile(inline = false, content = new File("save.json"), fileName = _ => Option("save.json"))
   }
 
-  def gameLoadFromFile: Action[AnyContent] = Action {
-    NotImplemented
+  def gameLoadFromFile: Action[MultipartFormData[Files.TemporaryFile]] = Action(parse.multipartFormData) { request =>
+    request.body.files.map { file =>
+      file.ref.moveTo(new File("save.json"))
+    }
+    controller.loadGame()
+    Ok(createResponse)
   }
 
   def gameUndo: Action[AnyContent] = Action {
@@ -115,23 +117,6 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
       case '8' => 7
       case _ => -1
     }
-  }
-
-  def gameFieldToJson: JsObject = {
-    val figures = controller.getGameField
-    val player = if (controller.getPlayer.getRed == 0) "BLACK" else "WHITE"
-
-    Json.obj(
-      "gameField" -> Json.arr(
-        figures.map { t =>
-          Json.obj(
-            "color" -> player,
-            "checked" -> t.checked,
-            "x" -> t.x,
-            "y" -> t.y)
-        }
-      )
-    )
   }
 
   def createResponse: String = {

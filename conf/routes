@@ -3,11 +3,14 @@
 # ~~~~
 
 GET     /tui                        controllers.GameController.tuiGame(cmd: String ?= "")
+POST    /tui/cmd                    controllers.GameController.tuiGame(cmd: String)
 GET     /tui/new                    controllers.GameController.gameNew
-GET     /tui/move                   controllers.GameController.figureMove(from: String, to: String)
+POST    /tui/move                   controllers.GameController.figureMove(from: String, to: String)
 GET     /tui/undo                   controllers.GameController.gameUndo
 GET     /tui/redo                   controllers.GameController.gameRedo
-GET     /tui/convertPawn            controllers.GameController.convertPawn(toFigure: String)
+GET     /tui/save                   controllers.GameController.gameSaveToFile
+POST    /tui/load                   controllers.GameController.gameLoadFromFile
+PUT     /tui/convertPawn            controllers.GameController.convertPawn(toFigure: String)
 
 
 # An example controller showing a sample home page
