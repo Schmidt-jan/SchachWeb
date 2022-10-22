@@ -78,7 +78,7 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     controller.getGameStatus() match {
       case 0 => "RUNNING"
       case 1 => "PLAYER " + {
-        if (controller.getPlayer().getRed == 0) "Black"
+        if (controller.getPlayer().getRed == 0) "BLACK"
         else "WHITE"
       } + "IS CHECKED"
       case 2 => {

@@ -12,6 +12,13 @@ GET     /tui/save                   controllers.GameController.gameSaveToFile
 POST    /tui/load                   controllers.GameController.gameLoadFromFile
 PUT     /tui/convertPawn            controllers.GameController.convertPawn(toFigure: String)
 
+POST    /api/new                        controllers.GameControllerJson.gameNew
+GET     /api/status                     controllers.GameControllerJson.status
+POST    /api/move                       controllers.GameControllerJson.figureMove
+POST    /api/undo                       controllers.GameControllerJson.gameUndo
+POST    /api/redo                       controllers.GameControllerJson.gameRedo
+POST    /api/convertPawn                controllers.GameControllerJson.convertPawn(toFigure: String)
+
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
