@@ -23,6 +23,10 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
   controller.notifyObservers
   var response: Vector[Figure] = Vector.empty
 
+  def index: Action[AnyContent] = Action {
+    Ok(views.html.game(controller.gameField))
+  }
+
   def tuiGame(cmd: String): Action[AnyContent] = Action {
     if (cmd.nonEmpty)
       tui.interactWithUser(cmd)

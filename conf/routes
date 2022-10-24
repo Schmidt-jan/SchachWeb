@@ -12,6 +12,8 @@ GET     /tui/save                   controllers.GameController.gameSaveToFile
 POST    /tui/load                   controllers.GameController.gameLoadFromFile
 PUT     /tui/convertPawn            controllers.GameController.convertPawn(toFigure: String)
 
+GET     /                           controllers.GameController.index
+
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
