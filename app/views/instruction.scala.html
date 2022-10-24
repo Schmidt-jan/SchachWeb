@@ -1,0 +1,54 @@
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+    <title>Chess</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    </head>
+    <body>
+        <h1><a id="How_to_play">How to play chess</a></h1>
+        <p>You can play by editing the url <a href="./?cmd=">localhost:9000?cmd=&lt;command&gt;</a>. The url contains a query with the command. Valid commands are</p>
+        <table>
+            <tr>
+                <td><b>Command</b></td>
+                <td><b>Explanation</b></td>
+                <td><b>Example</b></td>
+
+            </tr>
+            <tr>
+                <td>new</td>
+                <td>Start a new game</td>
+                <td>new</td>
+            </tr>
+            <tr>
+                <td>move </td>
+                <td>Move a figure</td>
+                <td>move A2 A4</td>
+            </tr>
+            <tr>
+                <td>switch</td>
+                <td>If the pawn has reached the enemies end you can switch it to an already checked figure</td>
+                <td>switch Rook</td>
+            </tr>
+            <tr>
+                <td>undo</td>
+                <td>Undo the last move</td>
+                <td>undo</td>
+            </tr>
+            <tr>
+                <td>redo</td>
+                <td>Redo the last move</td>
+                <td>redo</td>
+            </tr>
+            <tr>
+                <td>save_game</td>
+                <td>Saves the game</td>
+                <td>save_game</td>
+            </tr>
+            <tr>
+                <td>load_game</td>
+                <td>Reloads the previous saved game</td>
+                <td>load_game</td>
+            </tr>
+        </table>
+    </body>
+</html>

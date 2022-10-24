@@ -7,46 +7,54 @@
 @import Schach.model.gameFieldComponent.gameFieldBaseImpl.GameField
 @import Schach.model.figureComponent.Figure
 @import Schach.model.gameFieldComponent.GameFieldInterface
-@(gameField: GameFieldInterface)
+@(gameField: GameFieldInterface, status: String, player: String)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @* Here's where we render the page title `String`. *@
         <title>Chess</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
     </head>
     <body>
-        <table class="chess-board">
+        <h1>♚ Chess ♛</h1>
+        <p>If you are not familiar with the rules or am interested in the history see
+            <a href="./rules">here</a>.
+        </p>
+        <p>
+            You can take a look <a href="./instructions">here</a> to see which commands are supported.
+        </p>
+        <h2>Game field</h2>
+        <p><b>Status: </b>@status</p>
+        <p><b>Actual player:</b> @player</p>
+        <table>
             <tbody>
-                @for(row <- Array("", "a", "b", "c", "d", "e", "f", "g", "h")) {
+                @for(row <- Array("", "A", "B", "C", "D", "E", "F", "G", "H")) {
                     <th>@row</th>
                 }
                 @for(column <- Array(8, 7, 6, 5, 4, 3, 2, 1)) {
                     <tr>
                         <th>@column</th>
                         @for(row <- Array(1, 2, 3, 4, 5, 6, 7, 8)) {
-                            <th background=@{
-                                var rowStartsWithBlack = column % 2 == 0
-                                var columnStartsWithBlack = row % 2 == 1
-                                var cellBlack = rowStartsWithBlack ^ columnStartsWithBlack
+                            <th >
+                                @* background=@{*@
+                                @* var rowStartsWithBlack = column % 2 == 0*@
+                                @* var columnStartsWithBlack = row % 2 == 1*@
+                                @* var cellBlack = rowStartsWithBlack ^ columnStartsWithBlack*@
 
-                                if(cellBlack) {
-                                    "#aaa"
-                                } else {
-                                    "#eee"
-                                }
-                            }>@{
-                                var oFigure = gameField.getFigure(row -1 , column - 1);
-                                oFigure.getOrElse("").toString
-                            }</th>
+                                @* if(cellBlack) {*@
+                                @* "#aaa"*@
+                                @* } else {*@
+                                @* "#eee"*@
+                                @* }*@
+                                @* }>*@
+                                @{
+                                    var oFigure = gameField.getFigure(row - 1, column - 1);
+                                    oFigure.getOrElse("").toString
+                                }</th>
                         }
 
                     </tr>
                 }
-
             </tbody>
         </table>
     </body>

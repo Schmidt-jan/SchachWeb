@@ -1,0 +1,123 @@
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+    <title>Chess</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    </head>
+    <body>
+        <h1>Chess rules an history</h1>
+        <p>Here you can take a look at the basic chess rules. Further you can learn something about the history of chess.
+            In the end there is the most important chapter, how to play this online version.</p>
+
+        <h2>Overview</h2>
+        <ol>
+            <li><a href="#Rules">Rules</a></li>
+            <ul>
+                <li><a href="#Figure_movement">Figure movement</a> </li>
+                <ul>
+                    <li><a href="#Pawn">Pawn</a></li>
+                    <li><a href="#Rook">Rook</a></li>
+                    <li><a href="#Knight">Knight</a></li>
+                    <li><a href="#Bishop">Bishop</a></li>
+                    <li><a href="#King">King</a></li>
+                    <li><a href="#Queen">Queen</a></li>
+                </ul>
+
+                <li><a href="#Keywords">Keywords</a> </li>
+                <ul>
+                    <li><a href="#Checked">Checked</a></li>
+                    <li><a href="#Checkmate">Checkmate</a></li>
+                </ul>
+            </ul>
+            <li><a href="#History">History</a></li>
+            <li><a href="#How_to_play">How to play</a></li>
+        </ol>
+
+
+        <h2><a id="Rules">Rules</a></h2>
+        <p>Chess is a board game for two players. It is sometimes called Western chess or international chess to distinguish
+            it from related games, such as xiangqi (Chinese chess) and shogi (Japanese chess). The current form of the game
+            emerged in Spain and the rest of Southern Europe during the second half of the 15th century after evolving from
+            chaturanga, a similar but much older game of Indian origin. Today, chess is one of the world's most popular games,
+            played by millions of people worldwide.
+            Chess is an abstract strategy game and involves no hidden information. It is played on a chessboard with 64
+            squares arranged in an eight-by-eight grid. At the start, each player controls sixteen pieces: one king, one queen,
+            two rooks, two bishops, two knights, and eight pawns. The player who moves first controls white pieces, and the
+            other controls black pieces. The object of the game is to checkmate the opponent's king, whereby the king is under
+            immediate attack (in "check") and there is no way for it to escape. There are also several ways a game can end in
+            a draw.
+        </p>
+        <p>To start a game, set up the game like in this picture.</p>
+        <img src="@routes.Assets.versioned("/images/start_setup.png")" alt="Possible pawn moves" width="200" height="200">
+        <p>
+            White moves first, after which players alternate turns, moving one piece per turn, except for castling, when two pieces are moved. A piece is moved to either an unoccupied square or one occupied by an opponent's piece, which is captured and removed from play. With the sole exception of en passant, all pieces capture by moving to the square that the opponent's piece occupies. Moving is compulsory; a player may not skip a turn, even when having to move is detrimental.
+            Each piece has its own way of moving. In the diagrams, the dots mark the squares to which the piece can move if there are no intervening piece(s) of either color (except the knight, which leaps over any intervening pieces). All pieces except the pawn can capture an enemy piece if it is located on a square to which they would be able to move if the square was unoccupied. The squares on which pawns can capture enemy pieces are marked in the diagram with black crosses.
+        </p>
+        <h3><a id="Figure_movement">Figure movement</a></h3>
+        <h4><a id="Pawn"></a>Pawn</h4>
+        <img src="@routes.Assets.versioned("/images/pawn_moves.png")" alt="Possible pawn moves" width="200" height="200">
+        <h4><a id="Rook"></a>Rook</h4>
+        <img src="@routes.Assets.versioned("/images/rook_moves.png")" alt="Possible rook moves" width="200" height="200">
+        <h4><a id="Knight"></a>Knight</h4>
+        <img src="@routes.Assets.versioned("/images/knight_moves.png")" alt="Possible knight moves" width="200" height="200">
+        <h4><a id="Bishop"></a>Bishop</h4>
+        <img src="@routes.Assets.versioned("/images/bishop_moves.png")" alt="Possible bishop moves" width="200" height="200">
+        <h4><a id="King"></a>King</h4>
+        <img src="@routes.Assets.versioned("/images/king_moves.png")" alt="Possible king moves" width="200" height="200">
+        <h4><a id="Queen"></a>Queen</h4>
+        <img src="@routes.Assets.versioned("/images/queen_moves.png")" alt="Possible queen moves" width="200" height="200">
+
+        <h3>Keywords</h3>
+        <h4><a id="Checked"></a>Checked</h4>
+        <p>Somebody is checked, if his king could get hit by a figure of the enemy the next move</p>
+
+        <h4><a id="Checkmate"></a>Checkmate</h4>
+        <p>A player is checkmate if he can't move the king to a position where he is not checked anymore.</p>
+
+        <h2><a id="History">History</a></h2>
+        <p>
+            The earliest texts referring to the origins of chess date from the beginning of the 7th century. Three are
+            written in Pahlavi (Middle Persian) and one, the Harshacharita, is in Sanskrit. One of these texts, the
+            Chatrang-namak, represents one of the earliest written accounts of chess. The narrator Bozorgmehr explains
+            that Chatrang, the Pahlavi word for chess, was introduced to Persia by 'Dewasarm, a great ruler of India'
+            during the reign of Khosrow I.
+            The oldest known chess manual was in Arabic and dates to about 840, written by al-Adli ar-Rumi (800–870),
+            a renowned Arab chess player, titled Kitab ash-shatranj (The Book of Chess). This is a lost manuscript, but
+            is referenced in later works. Here also, al-Adli attributes the origins of Persian chess to India, along
+            with the eighth-century collection of fables Kalīla wa-Dimna. By the twentieth century, a substantial consensus
+            developed regarding chess's origins in northwest India in the early 7th century. More recently, this consensus
+            has been the subject of further scrutiny.
+            The early forms of chess in India were known as chaturaṅga (Sanskrit: चतुरङ्ग), literally "four divisions"
+            [of the military] – infantry, cavalry, elephants, and chariotry – represented by pieces which would later
+            evolve into the modern pawn, knight, bishop, and rook, respectively. Chaturanga was played on an 8×8 uncheckered
+            board, called ashtāpada. Thence it spread eastward and westward along the Silk Road. The earliest evidence
+            of chess is found in the nearby Sasanian Persia around 600 A.D., where the game came to be known by the name
+            chatrang (Persian: چترنگ). Chatrang was taken up by the Muslim world after the Islamic conquest of Persia
+            (633–51), where it was then named shatranj (Arabic: شطرنج; Persian: شترنج), with the pieces largely retaining
+            their Persian names. In Spanish, "shatranj" was rendered as ajedrez ("al-shatranj"), in Portuguese as xadrez,
+            and in Greek as ζατρίκιον (zatrikion, which comes directly from the Persian chatrang), but in the rest of
+            Europe it was replaced by versions of the Persian shāh ("king"), from which the English words "check" and
+            "chess" descend. The word "checkmate" is derived from the Persian shāh māt ("the king is dead").
+            Antique Indian chess set made from sandalwood. Here the pieces are represented by riders upon elephants,
+            horses & camels predating the European Staunton design.
+            Knights Templar playing chess, Libro de los juegos, 1283
+            Xiangqi is the form of chess best-known in China. The eastern migration of chess, into China and Southeast
+            Asia, has even less documentation than its migration west, making it largely conjectured. The word xiàngqí
+            象棋 was used in China to refer to a game from 569 A.D. at the latest, but it has not been proven if this
+            game was or was not directly related to chess. The first reference to Chinese chess appears in a book entitled
+            Xuán guaì lù 玄怪錄 ("Record of the Mysterious and Strange"), dating to about 800. A minority view holds that
+            western chess arose from xiàngqí or one of its predecessors, although this has been contested. Chess historians
+            Jean-Louis Cazaux and Rick Knowlton contend that xiangqi's intrinsic characteristics make it easier to construct
+            an evolutionary path from China to India/Persia than the opposite direction.
+            The oldest archaeological chess artifacts – ivory pieces – were excavated in ancient Afrasiab, today's Samarkand,
+            in Uzbekistan, Central Asia, and date to about 760, with some of them possibly being older. Remarkably, almost
+            all findings of the oldest pieces come from along the Silk Road, from the former regions of the Tarim Basin
+            (today's Xinjiang in China), Transoxiana, Sogdiana, Bactria, Gandhara, to Iran on one end and to India through
+            Kashmir on the other.
+            The game reached Western Europe and Russia via at least three routes, the earliest being in the 9th century.
+            By the year 1000, it had spread throughout both the Muslim Iberia and Latin Europe. A Latin poem called Versus
+            de scachis ("Verses on Chess") dated to the late 10th century, has been preserved at the Einsiedeln Abbey.
+        </p>
+
+    </body>
+</html>

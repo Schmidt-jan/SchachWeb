@@ -2,7 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /tui                        controllers.GameController.tuiGame(cmd: String ?= "")
+GET     /                           controllers.GameController.tuiGame(cmd: String ?= "")
+GET     /tui                        controllers.GameController.tuiGame(cmd = "")
 POST    /tui/cmd                    controllers.GameController.tuiGame(cmd: String)
 GET     /tui/new                    controllers.GameController.gameNew
 POST    /tui/move                   controllers.GameController.figureMove(from: String, to: String)
@@ -12,11 +13,7 @@ GET     /tui/save                   controllers.GameController.gameSaveToFile
 POST    /tui/load                   controllers.GameController.gameLoadFromFile
 PUT     /tui/convertPawn            controllers.GameController.convertPawn(toFigure: String)
 
-GET     /                           controllers.GameController.index
-
-
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-
+GET     /rules                      controllers.GameController.rules
+GET     /instructions               controllers.GameController.instructions
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
