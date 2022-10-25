@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+html {
+    font-family: 'Exo', sans-serif;
+    background: #291f1e;
+    scroll-behavior: smooth;
+}
+
+p {
+    color: rgba(247, 243, 243, 0.6);
+}
+
+.highlight_color, a {
+    color: #3196e8;
+}
+
+.controls_table{
+    margin: 5px;
+}
+
+.layout {
+    display: grid;
+    grid:
+    "header header header" auto
+    "leftSide body rightSide" auto
+    "footer footer footer" auto
+    / auto auto auto;
+    gap: 10px;
+}
+
+.header {
+    grid-area: header;
+    font-size: 80px;
+    text-align: center;
+    line-height: 200px;
+    height: 200px;
+    color: #f7f3f3;
+}
+
+.body {
+    margin: 0 auto;
+}
+
+.container {
+    margin: 0 auto;
+    background-color: #4c3838;
+    border: 10px solid #544040;
+    border-radius: 23px;
+    color:#f7f3f3;
+    max-width: 500px;
+    width: 500px;
+}
+
+.subContainer {
+    padding: 15px;
+}
+
+.footer {
+    grid-area: footer;
+    text-align: center;
+    line-height: 200px;
+    height: 200px;
+    color: #f7f3f3;
+}
+
+.chess-board {
+    margin: 0;
+    border-collapse: collapse;
+}
+
+.cell {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    color:  #f7f3f3;
+}
+
+.th-black {
+    font-size: 40px;
+    background: #4c3838;
+    height: 50px;
+    width: 50px;
+    color:#f7f3f3;
+}
+
+
+.th-white {
+    font-size: 40px;
+    background: #8d6f6f;
+    height: 50px;
+    width: 50px;
+    color: #f7f3f3;
+
+
+}

@@ -7,55 +7,120 @@
 @import Schach.model.gameFieldComponent.gameFieldBaseImpl.GameField
 @import Schach.model.figureComponent.Figure
 @import Schach.model.gameFieldComponent.GameFieldInterface
-@(gameField: GameFieldInterface, status: String, player: String)
+@import java.awt.Color
+@(gameField: GameFieldInterface, color: String, status: String)
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="/stylesheets/chess.css" type="text/css">
         <title>Chess</title>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
     </head>
     <body>
-        <h1>♚ Chess ♛</h1>
-        <p>If you are not familiar with the rules or am interested in the history see
-            <a href="./rules">here</a>.
-        </p>
-        <p>
-            You can take a look <a href="./instructions">here</a> to see which commands are supported.
-        </p>
-        <h2>Game field</h2>
-        <p><b>Status: </b>@status</p>
-        <p><b>Actual player:</b> @player</p>
-        <table>
-            <tbody>
-                @for(row <- Array("", "A", "B", "C", "D", "E", "F", "G", "H")) {
-                    <th>@row</th>
-                }
-                @for(column <- Array(8, 7, 6, 5, 4, 3, 2, 1)) {
-                    <tr>
-                        <th>@column</th>
-                        @for(row <- Array(1, 2, 3, 4, 5, 6, 7, 8)) {
-                            <th >
-                                @* background=@{*@
-                                @* var rowStartsWithBlack = column % 2 == 0*@
-                                @* var columnStartsWithBlack = row % 2 == 1*@
-                                @* var cellBlack = rowStartsWithBlack ^ columnStartsWithBlack*@
 
-                                @* if(cellBlack) {*@
-                                @* "#aaa"*@
-                                @* } else {*@
-                                @* "#eee"*@
-                                @* }*@
-                                @* }>*@
-                                @{
-                                    var oFigure = gameField.getFigure(row - 1, column - 1);
-                                    oFigure.getOrElse("").toString
-                                }</th>
+        <section class="layout">
+            <div class="header">
+                ♚ WEB CHESS ♛
+            </div>
+            <div class="leftSide container"><div>
+                <div class="subContainer">
+                    <h1>Contols</h1>
+                    <p>You can play by editing the url <a href="./?cmd=">localhost:9000?cmd=&lt;command&gt;</a>. The url contains a query with the command. Valid commands are</p>
+                    <table class="controls_table">
+                        <tr>
+                            <td><b>Command</b></td>
+                            <td><b>Explanation</b></td>
+                            <td><b>Example</b></td>
+                        </tr>
+                        <tr><td></td></tr>
+                        <tr>
+                            <td class="highlight_color">new</td>
+                            <td>Start a new game</td>
+                            <td>new</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">move </td>
+                            <td>Move a figure</td>
+                            <td>move A2 A4</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">switch</td>
+                            <td>If the pawn has reached the enemies end you can switch it to an already checked figure</td>
+                            <td>switch Rook</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">undo</td>
+                            <td>Undo the last move</td>
+                            <td>undo</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">redo</td>
+                            <td>Redo the last move</td>
+                            <td>redo</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">save_game</td>
+                            <td>Saves the game</td>
+                            <td>save_game</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight_color">load_game</td>
+                            <td>Reloads the previous saved game</td>
+                            <td>load_game</td>
+                        </tr>
+                    </table>
+                </div>
+            </div></div>
+            <div class="body ">
+                <table class="chess-board">
+                    <tbody>
+                        @for(row <- Array("", "A", "B", "C", "D", "E", "F", "G", "H", "")) {
+                            <th><div class="cell">@row</div></th>
                         }
-
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    <th></th>
+                        @for(column <- Array(8, 7, 6, 5, 4, 3, 2, 1)) {
+                            <tr>
+                                <th><div class="cell">@column</div></th>
+                                @for(row <- Array(1, 2, 3, 4, 5, 6, 7, 8)) {
+                                    <th> <div class=@{
+                                        var rowStartsWithBlack = column % 2 == 0
+                                        var columnStartsWithBlack = row % 2 == 1
+                                        var cellBlack = rowStartsWithBlack ^ columnStartsWithBlack
+                                        if(cellBlack) {
+                                            "th-black cell"
+                                        } else {
+                                            "th-white cell"
+                                        }
+                                    }>
+                                    @{
+                                        var oFigure = gameField.getFigure(row - 1, column - 1);
+                                        oFigure.getOrElse("").toString;
+                                    }
+                                    </div></th>
+                                }
+                            </tr>
+                        }
+                    <tr><th><div class="cell"></div></th></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="rightSide container"><div>
+                <div class="subContainer">
+                    <h1>Status</h1>
+                    <p>
+                        Current player:
+                        <b class="highlight_color">@color</b></p>
+                    <p>Status:
+                        <b class="highlight_color">@{
+                            status
+                        }</b></p>
+                    <p>
+                </div>
+            </div></div>
+            <div class="footer">
+                <p>Implementation by <b>Jan Schmidt</b> and <b>Joel Merath</b></p>
+            </div>
+        </section>
     </body>
 </html>
