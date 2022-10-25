@@ -17,8 +17,8 @@
     </head>
     <body>
         <h1>♚ Chess ♛</h1>
-        <p>If you are not familiar with the rules or am interested in the history see
-            <a href="./rules">here</a>.
+        <p>If you are not familiar with the rules or interested in the history see
+            <a href="./rules">here.</a>
         </p>
         <p>
             You can take a look <a href="./instructions">here</a> to see which commands are supported.
@@ -36,17 +36,6 @@
                         <th>@column</th>
                         @for(row <- Array(1, 2, 3, 4, 5, 6, 7, 8)) {
                             <th >
-                                @* background=@{*@
-                                @* var rowStartsWithBlack = column % 2 == 0*@
-                                @* var columnStartsWithBlack = row % 2 == 1*@
-                                @* var cellBlack = rowStartsWithBlack ^ columnStartsWithBlack*@
-
-                                @* if(cellBlack) {*@
-                                @* "#aaa"*@
-                                @* } else {*@
-                                @* "#eee"*@
-                                @* }*@
-                                @* }>*@
                                 @{
                                     var oFigure = gameField.getFigure(row - 1, column - 1);
                                     oFigure.getOrElse("").toString
