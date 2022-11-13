@@ -5,7 +5,7 @@ import Schach.aview.Tui
 import Schach.controller.controllerComponent.ControllerInterface
 import Schach.model.figureComponent.Figure
 import com.google.inject.{Guice, Injector}
-import models.MovePiece
+import models.{ConvertPawn, MovePiece}
 import play.api.libs.json.{JsError, JsObject, JsValue, Json, OWrites, Reads}
 import play.api.mvc._
 
@@ -80,9 +80,16 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
     }
   }
 
-  def convertPawn(toFigure: String): Action[AnyContent] = Action {
-    controller.convertPawn(toFigure)
-    Ok(gameFieldToJson).as("application/json")
+  def convertPawn(toFigure: String): Action[JsValue] = Action(parse.json) { implicit request : Request[JsValue] =>
+    val conversionResult = request.body.validate[ConvertPawn]
+    conversionResult.fold(
+      errors => {
+        BadRequest(Json.obj("status" -> "error", "message" -> JsError.toJson(errors)))
+      },
+      move => {
+        controller.convertPawn(move.toFigure)
+        Ok(gameFieldToJson).as("application/json")
+      })
   }
 
 
