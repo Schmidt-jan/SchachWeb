@@ -23,11 +23,21 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
   controller.notifyObservers
   var response: Vector[Figure] = Vector.empty
 
+  def rules: Action[AnyContent] = Action {
+    Ok(views.html.rules())
+  }
+
+  def instructions: Action[AnyContent] = Action {
+    Ok(views.html.instruction())
+  }
+
   def tuiGame(cmd: String): Action[AnyContent] = Action {
     if (cmd.nonEmpty)
       tui.interactWithUser(cmd)
 
-    Ok(createResponse)
+
+    val player = if (controller.getPlayer().getRed == 0) "BLACK" else "WHITE"
+    Ok(views.html.game(controller.gameField, printGameStatus(), player));
   }
 
   def gameNew: Action[AnyContent] = Action {
@@ -78,7 +88,7 @@ class GameController @Inject()(cc: ControllerComponents) extends AbstractControl
     controller.getGameStatus() match {
       case 0 => "RUNNING"
       case 1 => "PLAYER " + {
-        if (controller.getPlayer().getRed == 0) "BLACK"
+        if (controller.getPlayer().getRed == 0) "Black"
         else "WHITE"
       } + "IS CHECKED"
       case 2 => {

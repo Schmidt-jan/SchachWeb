@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+html body {
+    background-color: #ececec;
+}
+
+.figure {
+    text-align: center;
+    margin: auto;
+    font-size: max(35px, 3vw);
+    line-height: 100%;
+}
+
+.table-border {
+    text-align: center;
+    color: #afafaf;
+    margin: auto;
+    font-size: max(20px, 1vw);
+    line-height: 100%;
+}
+
+.th-black {
+    background: #b596ff;
+    color: #f7f3f3;
+}
+
+.th-white {
+    background: #c6b0ff;
+    color: #f7f3f3;
+}
+
+.th-border {
+    background: #f8f9fa;
+}
+
+
+.custCol-xs-1-10,
+.custCol-sm-1-10 {
+    min-height: 1px;
+
+}
+
+.custCol-xs-1-10 {
+    width: 10%;
+    float: left;
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    height: 100%;
+}
+
+.custRow > [class*='custCol-'] {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.col{
+    padding: 0;
+}
+
+.row > [class*='col-'] {
+    padding: 0;
+}
+
+.square {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-padding {
+    padding: 20px;
+}
+
+.custPadding_l{
+    padding: 2vw 1vw 2vw 2vw;
+}
+
+.custPadding_r{
+    padding: 2vw 2vw 2vw 1vw;
+}
+
+@media (max-width: 768px) {
+    .custPadding_l{
+        padding: 2vw;
+    }
+    .custPadding_r{
+        padding:2vw;
+    }
+}
+
+.textfield {
+    border:1px;
+    padding: 2px;
+    background: #eaeaea;
+    font: 12pt Exo;
+    width: 100%;
+text-align: center;
+
+}
+
+.action-button{
+    height: 40px;
+    border:1px;
+    padding: 2px;
+    background: #eaeaea;
+    font: 13pt Exo;
+    width: 100%;
+}

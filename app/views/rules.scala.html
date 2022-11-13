@@ -1,0 +1,152 @@
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/chess.css" type="text/css">
+    <title>Chess</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <style>
+            body {
+                position: relative;
+            }
+
+            .container{
+                padding-top: 100px;
+            }
+
+
+            .img_center{
+                margin: auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target="#RulesNav">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">WebChess</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Play</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chess
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">History</a></li>
+                                <li><a class="dropdown-item" href="rules">Rules</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav id="RulesNav" class="navbar navbar-light bg-light px-3 fixed-top">
+            <a class="navbar-brand" href="#">WebChess</a>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Play</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#King">King</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Queen">Queen</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Rook">Rook</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Bishop">Bishop</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Knight">Knight</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Pawn">Pawns</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div data-spy="scroll" data-target="#RulesNav" data-offset="0">
+
+                        <img id="King" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg"/>
+
+
+                        <h4 >King</h4>
+                        <p>The king (♔, ♚) is the most important piece in the game of chess. It may move to any adjoining square; it may also perform a move known as castling. If a player's king is threatened with capture, it is said to be in check, and the player must remove the threat of capture on the next move. If this cannot be done, the king is said to be in checkmate, resulting in a loss for that player. A player cannot make any move that places their own king in check. Despite this, the king can become a strong offensive piece in the endgame or, rarely, the middlegame.
+                            In algebraic notation, the king is abbreviated by the letter K among English speakers. The white king starts the game on e1; the black king starts on e8. Unlike the other pieces, only one king per player can be on the board at any time, and the kings are never removed from the board during the game. </p>
+
+
+                        <img id="Queen" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg" />
+                        <h4 >Queen</h4>
+                        <p>The queen (♕, ♛) is the most powerful piece in the game of chess, able to move any number of squares vertically, horizontally or diagonally, combining the power of the rook and bishop. Each player starts the game with one queen, placed in the middle of the first rank next to the king. Because the queen is the strongest piece, a pawn is promoted to a queen in the vast majority of cases.
+                            The predecessor to the queen is the ferz, a weak piece only able to move or capture one step diagonally, originating from the Persian game of shatranj. The modern queen gained its power and its modern move in Spain in the 15th century during Isabella I's reign, perhaps inspired by her great political power. </p>
+
+
+                        <img id="Rook" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg" />
+                        <h4 >Rook</h4>
+                        <p>The rook (/rʊk/; ♖, ♜) is a piece in the game of chess. It may move any number of squares horizontally or vertically without jumping, and it may capture an enemy piece on its path; additionally, it may participate in castling. Each player starts the game with two rooks, one in each corner on their own side of the board.
+                            Formerly, the rook (from Persian رخ rokh/rukh, meaning "chariot") was alternatively called the tower, marquess, rector, and comes (count or earl).[1] The term "castle" is considered to be informal, incorrect, or old-fashioned.</p>
+
+
+                        <img id="Bishop" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg" />
+                        <h4 >Bishop</h4>
+                        <p>The bishop (♗, ♝) is a piece in the game of chess. It moves and captures along diagonals without jumping over intervening pieces. Each player begins the game with two bishops. One starts between the king's knight and the king, the other between the queen's knight and the queen. The starting squares are c1 and f1 for White's bishops, and c8 and f8 for Black's bishops. </p>
+
+
+                        <img id="Knight" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg" />
+                        <h4 >Knight</h4>
+                        <p>The knight (♘, ♞) is a piece in the game of chess, represented by a horse's head and neck. It may move two squares vertically and one square horizontally or two squares horizontally and one square vertically, jumping over other pieces. Each player starts the game with two knights on the b- and g-files, each located between a rook and a bishop.</p>
+
+
+                        <img id="Pawn" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg" />
+                        <h4 >Pawn</h4>
+                        <p>The pawn (♙, ♟) is the most numerous and weakest piece in the game of chess. It may move one vacant square directly forward, it may move two vacant squares directly forward on its first move, and it may capture one square diagonally forward. Each player begins a game with eight pawns, one on each square of their second rank. The white pawns start on a2 through h2; the black pawns start on a7 through h7.
+                            Individual pawns are referred to by the file on which they stand. For example, one speaks of "White's f-pawn" or "Black's b-pawn". Alternatively, they can be referred to by the piece which stood on that file at the beginning of the game, e.g. "White's king bishop's pawn" or "Black's queen knight's pawn". It is also common to refer to a rook's pawn, meaning any pawn on the a- or h-files, a knight's pawn (on the b- or g-files), a bishop's pawn (on the c- or f-files), a queen's pawn (on the d-file), a king's pawn (on the e-file), and a central pawn (on the d- or e-files).
+                            The pawn historically represents soldiers or infantry, or more particularly, armed peasants or pikemen.</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+        <script>
+            window.addEventListener("resize", ResizeWindow);
+
+            function ResizeWindow() {
+                var dataSpyList = [].slice.call(document.querySelectorAll('[data-spy="scroll"]'));
+                dataSpyList.forEach(function (dataSpyElement) {
+                    bootstrap.ScrollSpy.getInstance(dataSpyElement).refresh();
+                });
+            }
+        </script>
+
+    </body>
+</html>
