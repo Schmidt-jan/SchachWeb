@@ -1,123 +1,152 @@
 <html lang="en">
     <head>
         @* Here's where we render the page title `String`. *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/chess.css" type="text/css">
     <title>Chess</title>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <style>
+            body {
+                position: relative;
+            }
+
+            .container{
+                padding-top: 100px;
+            }
+
+
+            .img_center{
+                margin: auto;
+                display: block;
+            }
+        </style>
     </head>
-    <body>
-        <h1>Chess rules an history</h1>
-        <p>Here you can take a look at the basic chess rules. Further you can learn something about the history of chess.
-            In the end there is the most important chapter, how to play this online version.</p>
+    <body data-spy="scroll" data-target="#RulesNav">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">WebChess</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Play</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chess
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">History</a></li>
+                                <li><a class="dropdown-item" href="rules">Rules</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav id="RulesNav" class="navbar navbar-light bg-light px-3 fixed-top">
+            <a class="navbar-brand" href="#">WebChess</a>
 
-        <h2>Overview</h2>
-        <ol>
-            <li><a href="#Rules">Rules</a></li>
-            <ul>
-                <li><a href="#Figure_movement">Figure movement</a> </li>
-                <ul>
-                    <li><a href="#Pawn">Pawn</a></li>
-                    <li><a href="#Rook">Rook</a></li>
-                    <li><a href="#Knight">Knight</a></li>
-                    <li><a href="#Bishop">Bishop</a></li>
-                    <li><a href="#King">King</a></li>
-                    <li><a href="#Queen">Queen</a></li>
-                </ul>
-
-                <li><a href="#Keywords">Keywords</a> </li>
-                <ul>
-                    <li><a href="#Checked">Checked</a></li>
-                    <li><a href="#Checkmate">Checkmate</a></li>
-                </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Play</a>
+                </li>
             </ul>
-            <li><a href="#History">History</a></li>
-            <li><a href="#How_to_play">How to play</a></li>
-        </ol>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#King">King</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Queen">Queen</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Rook">Rook</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Bishop">Bishop</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Knight">Knight</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#Pawn">Pawns</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div data-spy="scroll" data-target="#RulesNav" data-offset="0">
+
+                        <img id="King" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg"/>
 
 
-        <h2><a id="Rules">Rules</a></h2>
-        <p>Chess is a board game for two players. It is sometimes called Western chess or international chess to distinguish
-            it from related games, such as xiangqi (Chinese chess) and shogi (Japanese chess). The current form of the game
-            emerged in Spain and the rest of Southern Europe during the second half of the 15th century after evolving from
-            chaturanga, a similar but much older game of Indian origin. Today, chess is one of the world's most popular games,
-            played by millions of people worldwide.
-            Chess is an abstract strategy game and involves no hidden information. It is played on a chessboard with 64
-            squares arranged in an eight-by-eight grid. At the start, each player controls sixteen pieces: one king, one queen,
-            two rooks, two bishops, two knights, and eight pawns. The player who moves first controls white pieces, and the
-            other controls black pieces. The object of the game is to checkmate the opponent's king, whereby the king is under
-            immediate attack (in "check") and there is no way for it to escape. There are also several ways a game can end in
-            a draw.
-        </p>
-        <p>To start a game, set up the game like in this picture.</p>
-        <img src="@routes.Assets.versioned("/images/start_setup.png")" alt="Possible pawn moves" width="200" height="200">
-        <p>
-            White moves first, after which players alternate turns, moving one piece per turn, except for castling, when two pieces are moved. A piece is moved to either an unoccupied square or one occupied by an opponent's piece, which is captured and removed from play. With the sole exception of en passant, all pieces capture by moving to the square that the opponent's piece occupies. Moving is compulsory; a player may not skip a turn, even when having to move is detrimental.
-            Each piece has its own way of moving. In the diagrams, the dots mark the squares to which the piece can move if there are no intervening piece(s) of either color (except the knight, which leaps over any intervening pieces). All pieces except the pawn can capture an enemy piece if it is located on a square to which they would be able to move if the square was unoccupied. The squares on which pawns can capture enemy pieces are marked in the diagram with black crosses.
-        </p>
-        <h3><a id="Figure_movement">Figure movement</a></h3>
-        <h4><a id="Pawn"></a>Pawn</h4>
-        <img src="@routes.Assets.versioned("/images/pawn_moves.png")" alt="Possible pawn moves" width="200" height="200">
-        <h4><a id="Rook"></a>Rook</h4>
-        <img src="@routes.Assets.versioned("/images/rook_moves.png")" alt="Possible rook moves" width="200" height="200">
-        <h4><a id="Knight"></a>Knight</h4>
-        <img src="@routes.Assets.versioned("/images/knight_moves.png")" alt="Possible knight moves" width="200" height="200">
-        <h4><a id="Bishop"></a>Bishop</h4>
-        <img src="@routes.Assets.versioned("/images/bishop_moves.png")" alt="Possible bishop moves" width="200" height="200">
-        <h4><a id="King"></a>King</h4>
-        <img src="@routes.Assets.versioned("/images/king_moves.png")" alt="Possible king moves" width="200" height="200">
-        <h4><a id="Queen"></a>Queen</h4>
-        <img src="@routes.Assets.versioned("/images/queen_moves.png")" alt="Possible queen moves" width="200" height="200">
+                        <h4 >King</h4>
+                        <p>The king (♔, ♚) is the most important piece in the game of chess. It may move to any adjoining square; it may also perform a move known as castling. If a player's king is threatened with capture, it is said to be in check, and the player must remove the threat of capture on the next move. If this cannot be done, the king is said to be in checkmate, resulting in a loss for that player. A player cannot make any move that places their own king in check. Despite this, the king can become a strong offensive piece in the endgame or, rarely, the middlegame.
+                            In algebraic notation, the king is abbreviated by the letter K among English speakers. The white king starts the game on e1; the black king starts on e8. Unlike the other pieces, only one king per player can be on the board at any time, and the kings are never removed from the board during the game. </p>
 
-        <h3>Keywords</h3>
-        <h4><a id="Checked"></a>Checked</h4>
-        <p>Somebody is checked, if his king could get hit by a figure of the enemy the next move</p>
 
-        <h4><a id="Checkmate"></a>Checkmate</h4>
-        <p>A player is checkmate if he can't move the king to a position where he is not checked anymore.</p>
+                        <img id="Queen" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg" />
+                        <h4 >Queen</h4>
+                        <p>The queen (♕, ♛) is the most powerful piece in the game of chess, able to move any number of squares vertically, horizontally or diagonally, combining the power of the rook and bishop. Each player starts the game with one queen, placed in the middle of the first rank next to the king. Because the queen is the strongest piece, a pawn is promoted to a queen in the vast majority of cases.
+                            The predecessor to the queen is the ferz, a weak piece only able to move or capture one step diagonally, originating from the Persian game of shatranj. The modern queen gained its power and its modern move in Spain in the 15th century during Isabella I's reign, perhaps inspired by her great political power. </p>
 
-        <h2><a id="History">History</a></h2>
-        <p>
-            The earliest texts referring to the origins of chess date from the beginning of the 7th century. Three are
-            written in Pahlavi (Middle Persian) and one, the Harshacharita, is in Sanskrit. One of these texts, the
-            Chatrang-namak, represents one of the earliest written accounts of chess. The narrator Bozorgmehr explains
-            that Chatrang, the Pahlavi word for chess, was introduced to Persia by 'Dewasarm, a great ruler of India'
-            during the reign of Khosrow I.
-            The oldest known chess manual was in Arabic and dates to about 840, written by al-Adli ar-Rumi (800–870),
-            a renowned Arab chess player, titled Kitab ash-shatranj (The Book of Chess). This is a lost manuscript, but
-            is referenced in later works. Here also, al-Adli attributes the origins of Persian chess to India, along
-            with the eighth-century collection of fables Kalīla wa-Dimna. By the twentieth century, a substantial consensus
-            developed regarding chess's origins in northwest India in the early 7th century. More recently, this consensus
-            has been the subject of further scrutiny.
-            The early forms of chess in India were known as chaturaṅga (Sanskrit: चतुरङ्ग), literally "four divisions"
-            [of the military] – infantry, cavalry, elephants, and chariotry – represented by pieces which would later
-            evolve into the modern pawn, knight, bishop, and rook, respectively. Chaturanga was played on an 8×8 uncheckered
-            board, called ashtāpada. Thence it spread eastward and westward along the Silk Road. The earliest evidence
-            of chess is found in the nearby Sasanian Persia around 600 A.D., where the game came to be known by the name
-            chatrang (Persian: چترنگ). Chatrang was taken up by the Muslim world after the Islamic conquest of Persia
-            (633–51), where it was then named shatranj (Arabic: شطرنج; Persian: شترنج), with the pieces largely retaining
-            their Persian names. In Spanish, "shatranj" was rendered as ajedrez ("al-shatranj"), in Portuguese as xadrez,
-            and in Greek as ζατρίκιον (zatrikion, which comes directly from the Persian chatrang), but in the rest of
-            Europe it was replaced by versions of the Persian shāh ("king"), from which the English words "check" and
-            "chess" descend. The word "checkmate" is derived from the Persian shāh māt ("the king is dead").
-            Antique Indian chess set made from sandalwood. Here the pieces are represented by riders upon elephants,
-            horses & camels predating the European Staunton design.
-            Knights Templar playing chess, Libro de los juegos, 1283
-            Xiangqi is the form of chess best-known in China. The eastern migration of chess, into China and Southeast
-            Asia, has even less documentation than its migration west, making it largely conjectured. The word xiàngqí
-            象棋 was used in China to refer to a game from 569 A.D. at the latest, but it has not been proven if this
-            game was or was not directly related to chess. The first reference to Chinese chess appears in a book entitled
-            Xuán guaì lù 玄怪錄 ("Record of the Mysterious and Strange"), dating to about 800. A minority view holds that
-            western chess arose from xiàngqí or one of its predecessors, although this has been contested. Chess historians
-            Jean-Louis Cazaux and Rick Knowlton contend that xiangqi's intrinsic characteristics make it easier to construct
-            an evolutionary path from China to India/Persia than the opposite direction.
-            The oldest archaeological chess artifacts – ivory pieces – were excavated in ancient Afrasiab, today's Samarkand,
-            in Uzbekistan, Central Asia, and date to about 760, with some of them possibly being older. Remarkably, almost
-            all findings of the oldest pieces come from along the Silk Road, from the former regions of the Tarim Basin
-            (today's Xinjiang in China), Transoxiana, Sogdiana, Bactria, Gandhara, to Iran on one end and to India through
-            Kashmir on the other.
-            The game reached Western Europe and Russia via at least three routes, the earliest being in the 9th century.
-            By the year 1000, it had spread throughout both the Muslim Iberia and Latin Europe. A Latin poem called Versus
-            de scachis ("Verses on Chess") dated to the late 10th century, has been preserved at the Einsiedeln Abbey.
-        </p>
+
+                        <img id="Rook" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg" />
+                        <h4 >Rook</h4>
+                        <p>The rook (/rʊk/; ♖, ♜) is a piece in the game of chess. It may move any number of squares horizontally or vertically without jumping, and it may capture an enemy piece on its path; additionally, it may participate in castling. Each player starts the game with two rooks, one in each corner on their own side of the board.
+                            Formerly, the rook (from Persian رخ rokh/rukh, meaning "chariot") was alternatively called the tower, marquess, rector, and comes (count or earl).[1] The term "castle" is considered to be informal, incorrect, or old-fashioned.</p>
+
+
+                        <img id="Bishop" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg" />
+                        <h4 >Bishop</h4>
+                        <p>The bishop (♗, ♝) is a piece in the game of chess. It moves and captures along diagonals without jumping over intervening pieces. Each player begins the game with two bishops. One starts between the king's knight and the king, the other between the queen's knight and the queen. The starting squares are c1 and f1 for White's bishops, and c8 and f8 for Black's bishops. </p>
+
+
+                        <img id="Knight" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg" />
+                        <h4 >Knight</h4>
+                        <p>The knight (♘, ♞) is a piece in the game of chess, represented by a horse's head and neck. It may move two squares vertically and one square horizontally or two squares horizontally and one square vertically, jumping over other pieces. Each player starts the game with two knights on the b- and g-files, each located between a rook and a bishop.</p>
+
+
+                        <img id="Pawn" class="w-25 img_center" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg" />
+                        <h4 >Pawn</h4>
+                        <p>The pawn (♙, ♟) is the most numerous and weakest piece in the game of chess. It may move one vacant square directly forward, it may move two vacant squares directly forward on its first move, and it may capture one square diagonally forward. Each player begins a game with eight pawns, one on each square of their second rank. The white pawns start on a2 through h2; the black pawns start on a7 through h7.
+                            Individual pawns are referred to by the file on which they stand. For example, one speaks of "White's f-pawn" or "Black's b-pawn". Alternatively, they can be referred to by the piece which stood on that file at the beginning of the game, e.g. "White's king bishop's pawn" or "Black's queen knight's pawn". It is also common to refer to a rook's pawn, meaning any pawn on the a- or h-files, a knight's pawn (on the b- or g-files), a bishop's pawn (on the c- or f-files), a queen's pawn (on the d-file), a king's pawn (on the e-file), and a central pawn (on the d- or e-files).
+                            The pawn historically represents soldiers or infantry, or more particularly, armed peasants or pikemen.</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+        <script>
+            window.addEventListener("resize", ResizeWindow);
+
+            function ResizeWindow() {
+                var dataSpyList = [].slice.call(document.querySelectorAll('[data-spy="scroll"]'));
+                dataSpyList.forEach(function (dataSpyElement) {
+                    bootstrap.ScrollSpy.getInstance(dataSpyElement).refresh();
+                });
+            }
+        </script>
 
     </body>
 </html>

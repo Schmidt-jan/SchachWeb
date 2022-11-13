@@ -1,54 +1,110 @@
 <html lang="en">
     <head>
         @* Here's where we render the page title `String`. *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/chess.css" type="text/css">
     <title>Chess</title>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-    </head>
-    <body>
-        <h1><a id="How_to_play">How to play chess</a></h1>
-        <p>You can play by editing the url <a href="./?cmd=">localhost:9000?cmd=&lt;command&gt;</a>. The url contains a query with the command. Valid commands are</p>
-        <table>
-            <tr>
-                <td><b>Command</b></td>
-                <td><b>Explanation</b></td>
-                <td><b>Example</b></td>
+    <style>
+            body {
+                position: relative;
+            }
 
-            </tr>
-            <tr>
-                <td>new</td>
-                <td>Start a new game</td>
-                <td>new</td>
-            </tr>
-            <tr>
-                <td>move </td>
-                <td>Move a figure</td>
-                <td>move A2 A4</td>
-            </tr>
-            <tr>
-                <td>switch</td>
-                <td>If the pawn has reached the enemies end you can switch it to an already checked figure</td>
-                <td>switch Rook</td>
-            </tr>
-            <tr>
-                <td>undo</td>
-                <td>Undo the last move</td>
-                <td>undo</td>
-            </tr>
-            <tr>
-                <td>redo</td>
-                <td>Redo the last move</td>
-                <td>redo</td>
-            </tr>
-            <tr>
-                <td>save_game</td>
-                <td>Saves the game</td>
-                <td>save_game</td>
-            </tr>
-            <tr>
-                <td>load_game</td>
-                <td>Reloads the previous saved game</td>
-                <td>load_game</td>
-            </tr>
-        </table>
+            .conHeight{
+                padding-top: 50px;
+            }
+
+            .img_center{
+                margin: auto;
+                display: block;
+            }
+        </style>
+    </head>
+    <body data-spy="scroll" data-target="#RulesNav">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">WebChess</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Play</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chess
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">History</a></li>
+                                <li><a class="dropdown-item" href="rules">Rules</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav id="RulesNav" class="navbar navbar-light bg-light px-3 fixed-top">
+            <a class="navbar-brand" href="#">WebChess</a>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/">Play</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="#History">History</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container conHeight">
+            <div class="row">
+                <div class="col">
+                    <div data-spy="scroll" data-target="#RulesNav" data-offset="0">
+
+
+
+                        <h4 id="History">History</h4>
+                        <p>Chess is a board game for two players. It is sometimes called Western chess or international chess to distinguish it from related games, such as xiangqi (Chinese chess) and shogi (Japanese chess). The current form of the game emerged in Spain and the rest of Southern Europe during the second half of the 15th century after evolving from chaturanga, a similar but much older game of Indian origin. Today, chess is one of the world's most popular games, played by millions of people worldwide.
+
+                            Chess is an abstract strategy game and involves no hidden information. It is played on a chessboard with 64 squares arranged in an eight-by-eight grid. At the start, each player controls sixteen pieces: one king, one queen, two rooks, two bishops, two knights, and eight pawns. The player who moves first controls white pieces, and the other controls black pieces. The object of the game is to checkmate the opponent's king, whereby the king is under immediate attack (in "check") and there is no way for it to escape. There are also several ways a game can end in a draw.
+
+                            Organized chess arose in the 19th century. Chess competition today is governed internationally by FIDE (International Chess Federation). The first universally recognized World Chess Champion, Wilhelm Steinitz, claimed his title in 1886; Magnus Carlsen is the current World Champion. A huge body of chess theory has developed since the game's inception. Aspects of art are found in chess composition, and chess in its turn influenced Western culture and art, and has connections with other fields such as mathematics, computer science, and psychology.
+
+                            One of the goals of early computer scientists was to create a chess-playing machine. In 1997, Deep Blue became the first computer to beat the reigning World Champion in a match when it defeated Garry Kasparov. Today's chess engines are significantly stronger than the best human players and have deeply influenced the development of chess theory. </p>
+
+
+                        <div class="w-100 ratio ratio-21x9">
+                            <iframe src="https://www.youtube.com/embed/YeB-1F-UKO0" title="A brief history of chess - Alex Gendler" allowfullscreen></iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+        <script>
+            window.addEventListener("resize", ResizeWindow);
+
+            function ResizeWindow() {
+                var dataSpyList = [].slice.call(document.querySelectorAll('[data-spy="scroll"]'));
+                dataSpyList.forEach(function (dataSpyElement) {
+                    bootstrap.ScrollSpy.getInstance(dataSpyElement).refresh();
+                });
+            }
+        </script>
+
     </body>
 </html>
