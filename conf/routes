@@ -20,7 +20,7 @@ GET     /api/status                     controllers.GameControllerJson.status
 POST    /api/move                       controllers.GameControllerJson.figureMove
 POST    /api/undo                       controllers.GameControllerJson.gameUndo
 POST    /api/redo                       controllers.GameControllerJson.gameRedo
-POST    /api/convertPawn                controllers.GameControllerJson.convertPawn(toFigure: String)
+POST    /api/convertPawn                controllers.GameControllerJson.convertPawn
 
 
 # Map static resources from the /public folder to the /assets URL path

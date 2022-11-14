@@ -66,21 +66,15 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
   def printGameStatus(): String = {
     controller.getGameStatus() match {
       case 0 => "RUNNING"
-      case 1 => "PLAYER " + {
-        if (controller.getPlayer().getRed == 0) "Black"
-        else "WHITE"
-      } + "IS CHECKED"
-      case 2 => {
-        if (controller.getPlayer().getRed == 0) "BLACK "
-        else "WHITE "
-      } + "IS CHECKMATE"
+      case 1 => "CHECKED"
+      case 2 =>  "CHECKMATE"
       case 3 => "INVALID MOVE"
       case 4 => "PAWN HAS REACHED THE END"
       case 5 => "INVALID CONVERSION"
     }
   }
 
-  def convertPawn(toFigure: String): Action[JsValue] = Action(parse.json) { implicit request : Request[JsValue] =>
+  def convertPawn: Action[JsValue] = Action(parse.json) { implicit request : Request[JsValue] =>
     val conversionResult = request.body.validate[ConvertPawn]
     conversionResult.fold(
       errors => {
