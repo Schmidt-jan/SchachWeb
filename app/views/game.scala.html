@@ -47,43 +47,50 @@
             </div>
         </nav>
         <div class="row square">
-            <div class="col-md-6  custPadding_l">
+            <div class="col-md-6">
+                <div class="custPadding_l">
                 <div  id="3dGame"></div>
-
-            </div>
+                </div>            </div>
             <div class="col-md-6">
                 <div class="custPadding_r" >
-                    <div style="background-color: white;height: 100%; padding: 4vw">
+                    <div class="rightPanelFrame">
                         <div class="row">
-                            <div class="col-4">
-                                <label for="moveFrom" >From</label>
-                            </div>
-                            <div class="col-8">
-                                <input class="textfield" id="moveFrom" type="text" maxlength="2" placeholder="A5">
-                            </div>
+                            <h2>State</h2>
+                            <p>
+                                State:
+                                <b id="labelState" class="highlight_color"></b>
+                            </p>
+                            <p>Current Player:
+                                <b id="labelPlayer" class="highlight_color"></b>
+                            </p>
+                            <p>
                         </div>
-                        <div class="row" style="padding: 1vh"></div>
+                    </div>
+                    <div style="background-color: transparent;
+                        height: 10px;
+                        "></div>
+                    <div class="rightPanelFrame">
                         <div class="row">
-                            <div class="col-4">
-                                <label for="moveTo">To</label>
+                            <h2>Settings</h2>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="toggleSound" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Sound</label>
                             </div>
-                            <div class="col-8">
-                                <input class="textfield" id="moveTo" type="text" maxlength="2"placeholder="A6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="toggleHints" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Hints for possible moves</label>
                             </div>
-                        </div>
-                        <div class="row" style="padding: 1vh"></div>
-                        <div class="row">
-                            <div class="col-4">
-                                <label for="moveTo"> </label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="toggleAutoRotate" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Auto rotation</label>
                             </div>
-                            <div class="col-8">
-                                <div class="buttons">
-                                    <button onclick="movePiece()" id="moveButton" onmouseover="checkInput()" class="action-button">Submit</button>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="toggle3d" unchecked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Cooler look?</label>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
