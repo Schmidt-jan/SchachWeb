@@ -13,24 +13,28 @@ html body {
 
 .table-border {
     text-align: center;
-    color: #afafaf;
+    color: #f4a460;
     margin: auto;
     font-size: max(20px, 1vw);
     line-height: 100%;
 }
 
 .th-black {
-    background: #b596ff;
-    color: #f7f3f3;
+    border: solid 2px #281e1e;
+    background: #ffe4b5;
+    color: #f4a460;
 }
 
 .th-white {
-    background: #c6b0ff;
-    color: #f7f3f3;
+    border: solid 2px #281e1e;
+    background: #3d2b1f;
+    color: #f4a460;
 }
 
 .th-border {
-    background: #f8f9fa;
+    border: solid 2px #281e1e;
+    background: #3d2b1f;
+    color: #f4a460;
 }
 
 
@@ -42,6 +46,11 @@ html body {
 
 .custCol-xs-1-10 {
     width: 10%;
+    float: left;
+}
+.custCol-3D {
+    width: 100%;
+    height: 100%;
     float: left;
 }
 
@@ -61,13 +70,18 @@ html body {
 
 }
 
-.col{
+.col {
     padding: 0;
 }
 
 .row > [class*='col-'] {
     padding: 0;
 }
+
+.row > h2, p {
+    padding: 0;
+}
+
 
 .square {
     aspect-ratio: 1 / 1;
@@ -80,38 +94,45 @@ html body {
     padding: 20px;
 }
 
-.custPadding_l{
+.custPadding_l {
     padding: 2vw 1vw 2vw 2vw;
 }
 
-.custPadding_r{
+.custPadding_r {
     padding: 2vw 2vw 2vw 1vw;
 }
 
 @media (max-width: 768px) {
-    .custPadding_l{
+    .custPadding_l {
         padding: 2vw;
     }
-    .custPadding_r{
-        padding:2vw;
+
+    .custPadding_r {
+        padding: 2vw;
     }
 }
 
 .textfield {
-    border:1px;
+    border: 1px;
     padding: 2px;
     background: #eaeaea;
     font: 12pt Exo;
     width: 100%;
-text-align: center;
+    text-align: center;
 
 }
 
-.action-button{
+.action-button {
     height: 40px;
-    border:1px;
+    border: 1px;
     padding: 2px;
     background: #eaeaea;
     font: 13pt Exo;
     width: 100%;
+}
+
+.rightPanelFrame {
+    background-color: #f8f9fa;
+    height: 100%;
+    padding: 3vw;
 }
