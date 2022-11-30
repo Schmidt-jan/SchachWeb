@@ -14,11 +14,10 @@ import java.io.File
 import java.nio.file.Paths
 import javax.inject.Inject
 import scala.io.Source
-
+import Schach.{GameFieldModule, Schach}
 
 class GameController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val injector: Injector = Guice.createInjector(new GameFieldModule)
-  val controller: ControllerInterface = injector.getInstance(classOf[ControllerInterface])
+  val controller = Schach.controller
   val tui = new Tui(controller)
   controller.notifyObservers
   var response: Vector[Figure] = Vector.empty

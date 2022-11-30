@@ -1,19 +1,22 @@
 package controllers
 
-import Schach.GameFieldModule
-import Schach.aview.Tui
-import Schach.controller.controllerComponent.ControllerInterface
-import Schach.model.figureComponent.Figure
+import Schach.{GameFieldModule, Schach}
+import _root_.Schach.aview.Tui
+import _root_.Schach.controller.controllerComponent.ControllerInterface
+import _root_.Schach.model.figureComponent.Figure
+import _root_.Schach.util.Observer
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import com.google.inject.{Guice, Injector}
 import models.{ConvertPawn, MovePiece}
 import play.api.libs.json.{JsError, JsObject, JsValue, Json, OWrites, Reads}
+import play.api.libs.streams.ActorFlow
 import play.api.mvc._
+import play.mvc.Action.Simple
 
 import javax.inject.Inject
 
-class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val injector: Injector = Guice.createInjector(new GameFieldModule)
-  val controller: ControllerInterface = injector.getInstance(classOf[ControllerInterface])
+class GameControllerJson @Inject()(cc: ControllerComponents)(implicit system: ActorSystem) extends AbstractController(cc) {
+  val controller = Schach.controller;
   var response: Vector[Figure] = Vector.empty
 
   def gameNew: Action[AnyContent] = Action {
@@ -25,7 +28,7 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
     Ok(gameFieldToJson)
   }
 
-  def figureMove: Action[JsValue] = Action(parse.json) { implicit request : Request[JsValue] =>
+  def figureMove: Action[JsValue] = Action(parse.json) { implicit request: Request[JsValue] =>
     val moveResult = request.body.validate[MovePiece]
     moveResult.fold(
       errors => {
@@ -67,14 +70,14 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
     controller.getGameStatus() match {
       case 0 => "RUNNING"
       case 1 => "CHECKED"
-      case 2 =>  "CHECKMATE"
+      case 2 => "CHECKMATE"
       case 3 => "INVALID MOVE"
       case 4 => "PAWN HAS REACHED THE END"
       case 5 => "INVALID CONVERSION"
     }
   }
 
-  def convertPawn: Action[JsValue] = Action(parse.json) { implicit request : Request[JsValue] =>
+  def convertPawn: Action[JsValue] = Action(parse.json) { implicit request: Request[JsValue] =>
     val conversionResult = request.body.validate[ConvertPawn]
     conversionResult.fold(
       errors => {
@@ -85,7 +88,6 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
         Ok(gameFieldToJson).as("application/json")
       })
   }
-
 
   def getPoint(input: Char): Int = {
     input match {
@@ -114,18 +116,83 @@ class GameControllerJson @Inject()(cc: ControllerComponents) extends AbstractCon
     val player = if (controller.getPlayer.getRed == 0) "BLACK" else "WHITE"
 
     Json.obj(
-      "currentPlayer" -> player,
-      "status" -> printGameStatus,
-      "gameField" ->
-        figures
-          .filter(element => !element.checked)
-          .map { t =>
-          Json.obj(
-            "figure" -> t.getClass.getSimpleName,
-            "color" -> { if (t.color.getRed == 0) "BLACK" else "WHITE" },
-            "x" -> t.x,
-            "y" -> t.y)
-        }
+      "type" -> "GameField",
+      "data" -> Json.obj(
+          "currentPlayer" -> player,
+          "status" -> printGameStatus,
+          "gameField" ->
+            figures
+              .filter(element => !element.checked)
+              .map { t =>
+                Json.obj(
+                  "figure" -> t.getClass.getSimpleName,
+                  "color" -> {
+                    if (t.color.getRed == 0) "BLACK" else "WHITE"
+                  },
+                  "x" -> t.x,
+                  "y" -> t.y)
+              }
+        )
     )
+  }
+
+  def statusUpdateToJson: JsObject = {
+    Json.obj(
+      "type" -> "StatusUpdate",
+      "data" -> Json.obj(
+        "currentPlayer" -> { if (controller.getPlayer.getRed == 0) "BLACK" else "WHITE" },
+        "status" -> printGameStatus()
+      )
+    );
+  }
+
+  def ws = WebSocket.accept[JsValue, JsValue] { requestHeader =>
+    ActorFlow.actorRef { actorRef =>
+      SimpleWebSocketActor.props(actorRef)
+    }
+  }
+
+  object SimpleWebSocketActor {
+    def props(clientActorRef: ActorRef) = Props(new SimpleWebSocketActor(clientActorRef))
+  }
+
+  class SimpleWebSocketActor(clientActorRef: ActorRef) extends Actor with Observer {
+    controller.add(this);
+    controller.notifyObservers
+
+    def receive = {
+      case jsValue: JsValue =>
+        val clientMessage = getMessageType(jsValue)
+
+        clientMessage match {
+          case "NewGame" => {
+            controller.createGameField()
+            clientActorRef ! (statusUpdateToJson)
+          }
+          case "MovePiece" => {
+            var move = (jsValue \ "data").as[MovePiece]
+            controller.movePiece(move.toVec)
+          }
+          case "ConvertPawn" => {
+            var toFigure = (jsValue \ "data").as[String]
+            controller.convertPawn(toFigure);
+          }
+          case "KeepAlive" =>
+        }
+    }
+
+    def sendResponse(): Unit = {
+      controller.getGameStatus() match {
+        case 3 | 5 => clientActorRef ! (statusUpdateToJson)
+        case _ =>  clientActorRef ! (gameFieldToJson)
+      }
+    }
+
+    def getMessageType(json: JsValue): String = (json \ "type").as[String]
+
+    override def update: Unit = {
+      sendResponse()
+    }
+
   }
 }
