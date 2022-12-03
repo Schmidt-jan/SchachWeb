@@ -15,11 +15,15 @@ let underAttackAudio = new Audio('assets/audio/underAttack.wav')
 let gameWinAudio = new Audio('assets/audio/gameWin.wav');
 let gameLoseAudio = new Audio('assets/audio/gameLose.wav');
 
-let toggleAutoRotate : HTMLElement | null;
+let toggleAutoRotate: HTMLElement | null;
 let toggleHints: HTMLElement | null;
 let toggleSound: HTMLElement | null;
 let labelPlayer: HTMLElement | null;
-let labelState : HTMLElement | null;
+let labelState: HTMLElement | null;
+let popupColorChooser: HTMLElement | null;
+let btnBlackColorChooser: HTMLElement | null;
+let btnWhiteColorChooser: HTMLElement | null;
+let gameView: HTMLElement | null;
 let figuresLoaded = false;
 
 let you: Player;
@@ -39,9 +43,13 @@ export function selectBlackPlayer() {
 
 function init() {
     initButtons();
-    const ok = confirm("Are you the white?");
-    you = ok ? Player.White : Player.Black;
+    //const ok = confirm("Are you the white?");
+    //you = ok ? Player.White : Player.Black;
 
+
+}
+
+function initGame() {
     const parent = document.getElementById('3dGame');
     if (!parent) {
         throw new Error('Couldnt find id "3dGame"');
@@ -63,6 +71,30 @@ function init() {
 }
 
 function initButtons() {
+    gameView = document.getElementById('gameView')
+    popupColorChooser = document.getElementById('popupColorChooser');
+    btnBlackColorChooser = document.getElementById('btnBlackColorChooser');
+    btnBlackColorChooser?.addEventListener('click', () => {
+        console.log('Clicked black')
+        you = Player.Black;
+        // @ts-ignore
+        popupColorChooser?.style.setProperty('display', 'none', 'important')
+        // @ts-ignore
+        gameView?.style.visibility = 'visible'
+        initGame();
+    })
+    btnWhiteColorChooser = document.getElementById('btnWhiteColorChooser');
+    btnWhiteColorChooser?.addEventListener('click', () => {
+        console.log('Clicked white')
+        you = Player.White;
+        // @ts-ignore
+        popupColorChooser?.style.setProperty('display', 'none', 'important')
+        // @ts-ignore
+        gameView?.style.visibility = 'visible'
+        initGame()
+    })
+
+
     toggle3d = document.getElementById('toggle3d')
     if (toggle3d) {
         toggle3d.addEventListener('click', () => {
@@ -82,7 +114,6 @@ function initButtons() {
 window.onload = init;
 document.getElementById('view')?.addEventListener('click', ChessBoard.setView3D)
 //document.getElementById('playerBlack')?.addEventListener('click', selectBlackPlayer)
-
 
 
 ws.onmessage = function (event) {

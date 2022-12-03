@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
 
+html { overflow-y: hidden; }
+
 html body {
     background-color: #ececec;
+    background-image: url("https://www.hdwallpaper.nu/wp-content/uploads/2017/09/chess-10.jpg");
 }
 
 .figure {
@@ -127,4 +130,21 @@ text-align: center;
 
 row > h2, p {
     padding: 0;
+}
+
+#gameView {
+    visibility: hidden;
+    z-index: 1;
+}
+
+.popup {
+    z-index: 2;
+}
+
+.popup > .chooser > button{
+    margin: 10px;
+}
+
+.popup > .chooser > button > .icon {
+    font-size: 100px;
 }
