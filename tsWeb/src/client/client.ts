@@ -6,6 +6,8 @@ import {ResponseMessage} from "./messageTypes/responses/ResponseMessage";
 import {GameFieldRes} from "./messageTypes/responses/GameFieldRes";
 import {StatusUpdate, StatusUpdateRes} from "./messageTypes/responses/StatusUpdateRes";
 import {WebChessApiWs} from "./webChessApiWs";
+import * as $ from 'jquery';
+import * as bootstrap from "bootstrap";
 
 let toggle3d: HTMLElement | null;
 
@@ -24,6 +26,9 @@ let popupColorChooser: HTMLElement | null;
 let btnBlackColorChooser: HTMLElement | null;
 let btnWhiteColorChooser: HTMLElement | null;
 let gameView: HTMLElement | null;
+let info: bootstrap.Modal;
+let infoTitle: HTMLElement | null;
+let infoMessage: HTMLElement | null;
 let figuresLoaded = false;
 
 let you: Player;
@@ -71,6 +76,13 @@ function initGame() {
 }
 
 function initButtons() {
+    // @ts-ignore
+    info = new bootstrap.Modal(document.getElementById('info'), {
+        keyboard: false
+    })
+    infoMessage = document.getElementById('infoMessage')
+    infoTitle = document.getElementById('infoTitle')
+
     gameView = document.getElementById('gameView')
     popupColorChooser = document.getElementById('popupColorChooser');
     btnBlackColorChooser = document.getElementById('btnBlackColorChooser');
@@ -177,13 +189,13 @@ async function updateStatus(data: StatusUpdate) {
                 if (toggleSound?.checked) {
                     await gameLoseAudio.play();
                 }
-                alert('You lost');
+                showInfo('You lost');
             } else {
                 // @ts-ignore
                 if (toggleSound?.checked) {
                     await gameWinAudio.play();
                 }
-                alert('You won');
+                showInfo('You won');
             }
             break;
         case "PAWN HAS REACHED THE END":
@@ -200,13 +212,13 @@ async function updateStatus(data: StatusUpdate) {
                 if (toggleSound?.checked) {
                     await underAttackAudio.play();
                 }
-                alert(`You are under attack`);
+                showInfo(`You are under attack`);
             } else {
                 // @ts-ignore
                 if (toggleSound?.checked) {
                     await attackingAudio.play();
                 }
-                alert(`You are attacking`);
+                showInfo(`You are attacking`);
             }
             break;
         case "INVALID CONVERSION": {
@@ -227,4 +239,12 @@ async function updateStatus(data: StatusUpdate) {
             }
         }
     }
+}
+
+export function showInfo(message: string) {
+    // @ts-ignore
+    infoTitle?.innerText = 'Info';
+    // @ts-ignore
+    infoMessage?.innerText = message;
+    info.show()
 }
