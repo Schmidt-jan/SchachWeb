@@ -7,6 +7,12 @@ import {FigureTypes, Player} from "./models/GameField";
 import {degToRad} from "three/src/math/MathUtils";
 import {WebChessApiWs} from "./webChessApiWs";
 
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
+import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect";
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+//import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+
 let mainPlayer: Player;
 let enemy: Player;
 
@@ -17,6 +23,7 @@ export namespace ChessBoard {
     let camera: PerspectiveCamera | OrthographicCamera;
     let renderer: WebGLRenderer = new THREE.WebGLRenderer({antialias: true});
     let controls: OrbitControls;
+    let effect: OutlineEffect;
     let objects: THREE.Object3D[] = [];
     let pawn: undefined | Object3D = undefined;
     let knight: undefined | Object3D = undefined;
@@ -34,6 +41,18 @@ export namespace ChessBoard {
     let ws: WebSocket;
     let player: Player;
     let currPlayer: Player;
+    let compose: EffectComposer;
+    let composer, effectFXAA;
+    let outlinePass:OutlinePass;
+
+    let color_playGroundBackground = '#7380d0';
+    let color_playGroundBorder = '#cc7750';
+    let color_playGroundBorderFont = '#fff';
+    let color_cellBlack = '#a24228';
+    let color_cellWhite = '#d87f56';
+    let color_figureBlack = '#523534';
+    let color_figureWhite = '#f5f9fb';
+    let color_cellHint = '#fff';
 
     export function init(_player: Player, parent: HTMLElement, _ws: WebSocket, _g3d: boolean = false) {
         player = _player;
@@ -46,11 +65,14 @@ export namespace ChessBoard {
         scene.clear();
         mainPlayer = Player.White;
 
-        scene.background = new THREE.Color(0xffffff);
-        scene.add(new THREE.HemisphereLight(0xffffff, 0.8))
-        const light = new THREE.DirectionalLight(0xffffff, 0.5)
-        light.position.set(0, -5, 5);
+        scene.background = new THREE.Color(color_playGroundBackground);
+        //scene.add(new THREE.HemisphereLight(0xffffff, 0.8))
+        const light = new THREE.DirectionalLight('#ffffff', 1);
+        light.position.set(5, 5, 5);
         scene.add(light);
+
+        effect = new OutlineEffect( renderer);
+
 
         renderer.setPixelRatio(window.devicePixelRatio)
         elementParent.appendChild(renderer.domElement);
@@ -61,12 +83,20 @@ export namespace ChessBoard {
         } else {
             setView2D()
         }
+
+        var compose = new EffectComposer(renderer);
+        outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+        outlinePass.selectedObjects = [];
+        compose.addPass( outlinePass );
+        compose.render();
+
         render();
+
     }
 
     export function setView3D() {
         g3d = true;
-        camera = new THREE.PerspectiveCamera(50, elementParent.offsetWidth / elementParent.offsetHeight, 0.1, 1000);
+        camera = new THREE.PerspectiveCamera(50, elementParent.offsetWidth / elementParent.offsetHeight, 0.05, 1000);
         if (player === Player.White) {
             camera.position.set(-4.5, 12 / camera.aspect, -5);
         } else {
@@ -81,7 +111,7 @@ export namespace ChessBoard {
 
     export function setView2D() {
         g3d = false
-        camera = new THREE.PerspectiveCamera(50, elementParent.offsetWidth / elementParent.offsetWidth, 0.1, 1000);
+        camera = new THREE.PerspectiveCamera(50, elementParent.offsetWidth / elementParent.offsetWidth, 0.05, 1000);
         camera.position.set(-4.5, 12 / camera.aspect, 4.5);
         if (player === Player.White) {
             camera.up = new THREE.Vector3(0, -1, 1).normalize();
@@ -128,6 +158,29 @@ export namespace ChessBoard {
         let cellBlack = false;
         let columnCt = 0;
 
+        const tableGeo = new THREE.BoxGeometry(10.5, 0.5, 10.5);
+        const tableMaterial = new THREE.MeshBasicMaterial({
+            color: color_cellBlack
+        });
+        const table = new THREE.Mesh(tableGeo, tableMaterial);
+        table.position.set(-4.5,-0.28,4.5);
+        scene.add(table);
+
+        var geometry = new THREE.EdgesGeometry( table.geometry );
+        var material = new THREE.LineBasicMaterial( { color: 0x000000 } );
+        var wireframe = new THREE.LineSegments( geometry, material );
+        wireframe.position.set(-4.5,-0.28,4.5);
+        scene.add( wireframe );
+
+        const cellsBorder = new THREE.BoxGeometry(10, 0.075, 10);
+        const cellsBorder2 = new THREE.Mesh(cellsBorder, tableMaterial);
+        var geometry2 = new THREE.EdgesGeometry( cellsBorder2.geometry );
+        var material2 = new THREE.LineBasicMaterial( { color: 0x000000 } );
+        var wireframe2 = new THREE.LineSegments( geometry2, material2 );
+        wireframe2.position.set(-4.5,0.0125,4.5);
+        scene.add( wireframe2 );
+
+
         for (const letter of Array('', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '')) {
             for (const row of Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)) {
                 const cellGeometry = new THREE.BoxGeometry(1, 0.1, 1);
@@ -137,8 +190,8 @@ export namespace ChessBoard {
                 let isDescColumn = letter.length === 0;
                 if (isDescRow || isDescColumn) {
                     let canvas: HTMLCanvasElement = isDescRow ? createCanvas(letter) : createCanvas(row.toString())
-                    const cellMaterial = new THREE.MeshPhongMaterial({
-                        flatShading: true,
+                    const cellMaterial = new THREE.MeshBasicMaterial({
+                        //flatShading: true,
                         map: new CanvasTexture(canvas)
                     });
                     const cell = new THREE.Mesh(cellGeometry, cellMaterial);
@@ -148,12 +201,14 @@ export namespace ChessBoard {
                     }
                     scene.add(cell);
                 } else {
-                    const cellMaterial = new THREE.MeshPhongMaterial({
-                        color: cellBlack ? 0x3d2b1f : 0xffe4b5,
-                        flatShading: true
+                    const cellMaterial = new THREE.MeshBasicMaterial({
+                        //color: cellBlack ? 0x3d2b1f : 0xffe4b5,
+                        color: cellBlack ? color_cellBlack: color_cellWhite,
+
+                        //flatShading: true
                     });
                     const cell = new THREE.Mesh(cellGeometry, cellMaterial);
-                    cell.position.set(-columnCt, 0, row);
+                    cell.position.set(-columnCt, -0.04, row);
                     if (mainPlayer === Player.White) {
                         cell.rotateZ(Math.PI);
                     }
@@ -174,23 +229,24 @@ export namespace ChessBoard {
         canvas.width = canvas.height = 256;
         if (ctx) {
             ctx.beginPath();
-            ctx.strokeStyle = 'black'
-            ctx.lineWidth = 10
-            ctx.strokeRect(0, 0, 256, 256);
-            ctx.rect(0, 0, 256, 256);
-
-            ctx.fillStyle = '#3d2b1f';
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(0, 0, 512, 512);
+            ctx.rect(0, 0, 512, 512);
+            //Spielfeld Rahmen
+            ctx.fillStyle = color_playGroundBorder;
             ctx.fill();
-            ctx.fillStyle = '#ffe4b5';
+            //Spielfeld Rahmen Textfarbe
+            ctx.fillStyle = color_playGroundBorderFont;
             ctx.stroke();
             ctx.font = '128px sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(text, 128, 128);
         }
-
         return canvas;
     }
+
 
     export async function loadFigures(): Promise<void> {
         const loader = new OBJLoader();
@@ -255,6 +311,7 @@ export namespace ChessBoard {
     }
 
     function setFigure(type: FigureTypes, positions: [number, number][], colorBlack: boolean = false) {
+        //outlinePass.selectedObjects = [];
         for (const [x, y] of positions) {
             let figure = cloneFigure(type);
             figure.position.set(-x, 0, y);
@@ -265,12 +322,15 @@ export namespace ChessBoard {
             if (colorBlack) {
                 figure.rotateY(-Math.PI);
                 // @ts-ignore
-                figure.material = new THREE.MeshPhongMaterial({color: 0x8b4514, shininess: 30})
+                //figure.material = new THREE.MeshPhongMaterial({color: 0x8b4514, shininess: 30})
+                figure.material = new THREE.MeshToonMaterial({color:  color_figureBlack});
             } else {
                 // @ts-ignore
-                figure.material = new THREE.MeshPhongMaterial({color: 0xf4a460, shininess: 30})
+                figure.material = new THREE.MeshToonMaterial({color: color_figureWhite})
             }
             figures.push(figure);
+            outlinePass.selectedObjects?.push(figure as THREE.Object3D<Event>);
+            console.log(outlinePass.selectedObjects);
             scene.add(figure);
         }
     }
@@ -297,9 +357,13 @@ export namespace ChessBoard {
     }
 
     function render() {
-        controls.update();
+
+
         requestAnimationFrame(render);
-        renderer.render(scene, camera)
+        controls.update();
+        //compose.render();
+        //renderer.render(scene, camera);
+        effect.render( scene, camera );
     }
 
     export async function onClick(event: MouseEvent) {
@@ -324,6 +388,7 @@ export namespace ChessBoard {
         if (currPlayer !== player) {
             return;
         }
+
 
         // @ts-ignore
         if (obj.isFigure && !selectedFigure) {
@@ -509,7 +574,7 @@ export namespace ChessBoard {
             let possibleMoves = chessGameField.getPossibleMoves(figure, true);
             for (const [x, y] of possibleMoves) {
                 let geometry = new THREE.PlaneGeometry();
-                const material = new THREE.MeshBasicMaterial({transparent: true, opacity: 0.4, color: 0xffa500});
+                const material = new THREE.MeshBasicMaterial({transparent: true, opacity: 0.80, color: color_playGroundBackground});
                 const highlight = new THREE.Mesh(geometry, material);
                 highlight.position.set(-(x + 1), 0.051, y + 1);
                 highlight.rotateX(-Math.PI / 2)

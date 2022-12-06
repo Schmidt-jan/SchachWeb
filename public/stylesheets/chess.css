@@ -3,8 +3,8 @@
 html { overflow-y: hidden; }
 
 html body {
-    background-color: #ececec;
-    background-image: url("https://www.hdwallpaper.nu/wp-content/uploads/2017/09/chess-10.jpg");
+    background-color: #6e7bcc;
+
 }
 
 .figure {
@@ -97,10 +97,16 @@ html body {
 @media (max-width: 768px) {
     .custPadding_l{
         padding: 2vw;
+        border-radius: 20px;
     }
     .custPadding_r{
         padding:2vw;
     }
+}
+
+.form-check-input:checked {
+    background-color: #6e7bcc;
+    border-color: #6e7bcc;
 }
 
 .textfield {
@@ -126,6 +132,7 @@ text-align: center;
     background-color: #f8f9fa;
     height: 100%;
     padding: 3vw;
+    border-radius: 20px;
 }
 
 row > h2, p {
