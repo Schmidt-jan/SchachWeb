@@ -60,7 +60,7 @@ function initGame() {
         throw new Error('Couldnt find id "3dGame"');
     }
     ChessBoard.init(you, parent, ws, true);
-    //ChessBoard.startAnimation();
+    ChessBoard.startAnimation();
 
     ChessBoard.loadFigures().then(() => {
         return ChessBoard.loadFigures();

@@ -1,8 +1,8 @@
-name := "SchachWeb2"
+name := "SchachWeb"
 
 version := "1.0"
 
-lazy val `schachweb2` = (project in file(".")).enablePlugins(PlayScala)
+lazy val `schachweb` = (project in file(".")).enablePlugins(PlayScala)
 
 resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 

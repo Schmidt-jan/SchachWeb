@@ -308,6 +308,7 @@ export namespace ChessBoard {
         let mouse3D = new THREE.Vector2(((event.clientX - elementParent.offsetLeft) / renderer.domElement.clientWidth) * 2 - 1,
             -((event.clientY - elementParent.offsetTop) / renderer.domElement.clientHeight) * 2 + 1)
 
+        console.log(mouse3D)
         const raycaster = new THREE.Raycaster()
         raycaster.setFromCamera(mouse3D, camera);
         const intersects = raycaster.intersectObjects(scene.children);
