@@ -20,4 +20,7 @@ RUN \
   apt-get -y install sbt
 
 WORKDIR /var/www
-COPY ./SchachWeb /var/www
+COPY . /var/www
+RUN sbt compile
+
+CMD ["sbt", "run"]
