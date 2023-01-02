@@ -23,4 +23,4 @@ WORKDIR /var/www
 COPY . /var/www
 RUN sbt compile
 
-CMD ["sbt","run", "-Dhttp.port=80"]
+CMD ["sbt","run"]
