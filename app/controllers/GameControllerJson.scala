@@ -169,6 +169,9 @@ class GameControllerJson @Inject()(cc: ControllerComponents)(implicit system: Ac
             controller.createGameField()
             clientActorRef ! (statusUpdateToJson)
           }
+          case "GetGame" => {
+            clientActorRef ! (gameFieldToJson)
+          }
           case "MovePiece" => {
             var move = (jsValue \ "data").as[MovePiece]
             controller.movePiece(move.toVec)
