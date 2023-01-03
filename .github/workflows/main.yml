@@ -21,11 +21,11 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/chess_web_app:latest
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/chess_web_app:latest
 
       - name: 'Deploy to Azure Container Instances'
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'ChessWebApp'
-          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:${{ github.sha }}'
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/chess_web_app:latest'
