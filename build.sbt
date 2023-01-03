@@ -8,6 +8,7 @@ resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
 
 scalaVersion := "2.13.5"
 
+PlayKeys.devSettings := Seq("play.server.http.port" -> "80")
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "5.1.0"
 
