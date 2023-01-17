@@ -21,6 +21,7 @@ RUN \
 
 WORKDIR /var/www
 COPY . /var/www
-RUN sbt compile
 
+RUN sbt compile
+EXPOSE 80
 CMD ["sbt","run"]
